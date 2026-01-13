@@ -12,7 +12,7 @@ jobs:
         run: cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=RelWithDebInfo -D CMAKE_C_COMPILER=clang
       - name: Package
         run: cmake --build build --target package
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
           name: build
           path: |

@@ -1,7 +1,6 @@
 # CMake for Lua
 
-This is a CMake-based project to build and package [Lua](https://lua.org/) and
-[LuaRocks](https://luarocks.org/). As the [official Lua binaries
+This is a CMake-based project to build and package [Lua](https://lua.org/). As the [official Lua binaries
 repository](https://luabinaries.sourceforge.net/) is not updated very
 frequently, and the [compilation
 process](https://www.lua.org/manual/5.4/readme.html) for Windows binaries is not
@@ -23,7 +22,6 @@ winget install --id DEVCOM.Lua
   [Clang](https://clang.llvm.org/))
 - [CMake](https://cmake.org/)
 - [Ninja](https://ninja-build.org/)
-- [ImageMagick](https://imagemagick.org/)
 - [GhostScript](https://www.ghostscript.com/)
 - [WiX v3](https://wixtoolset.org/docs/wix3/)
 
@@ -34,7 +32,6 @@ You can install the first five components with the following
 winget install --id LLVM.LLVM
 winget install --id Kitware.CMake
 winget install --id Ninja-build.Ninja
-winget install --id ImageMagick.ImageMagick
 winget install --id ArtifexSoftware.GhostScript
 ```
 
@@ -63,7 +60,6 @@ Check if `PATH` was set correctly:
 Get-Command clang
 Get-Command cmake
 Get-Command ninja
-Get-Command magick
 Get-Command gswin64
 ```
 
@@ -81,7 +77,7 @@ cmake --build build --target package
 ```
 
 You need Internet access to execute the build process to download the Lua source
-code and LuaRocks binaries.
+code.
 
 For convenience, you can use the `Build-Lua.ps1` script to run these commands.
 

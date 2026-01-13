@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.26)
 set(LUA_VERSION 5.4.6)
 project(Lua
   VERSION ${LUA_VERSION}
-  DESCRIPTION "Lua and LuaRocks packaged by DEVCOM"
+  DESCRIPTION "Lua built using CMake"
   HOMEPAGE_URL https://github.com/DevelopersCommunity/cmake-lua
   LANGUAGES C
   )
@@ -19,34 +19,6 @@ if(NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${LUA_TARBALL})
   file(ARCHIVE_EXTRACT INPUT ${CMAKE_CURRENT_LIST_DIR}/${LUA_TARBALL}
     DESTINATION ${CMAKE_CURRENT_LIST_DIR}
     )
-endif()
-
-if(WIN32)
-  set(LUAROCKS_VERSION 3.9.2)
-  set(LUAROCKS_TARBALL luarocks-${LUAROCKS_VERSION}-windows-64.zip)
-
-  if(NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${LUAROCKS_TARBALL})
-    file(DOWNLOAD http://luarocks.github.io/luarocks/releases/${LUAROCKS_TARBALL}
-      ${CMAKE_CURRENT_LIST_DIR}/${LUAROCKS_TARBALL}
-      )
-    file(ARCHIVE_EXTRACT INPUT ${CMAKE_CURRENT_LIST_DIR}/${LUAROCKS_TARBALL}
-      DESTINATION ${CMAKE_CURRENT_LIST_DIR}
-      )
-  endif()
-
-  set(LUA_LOGO lua-logo-nolabel.ps)
-  if(NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${LUA_LOGO})
-    file(DOWNLOAD https://www.lua.org/images/${LUA_LOGO}
-      ${CMAKE_CURRENT_LIST_DIR}/${LUA_LOGO}
-      )
-  endif()
-
-  add_custom_command(OUTPUT lua.ico
-    COMMAND magick ${CMAKE_CURRENT_LIST_DIR}/${LUA_LOGO} -resize 256x256 lua.ico
-    MAIN_DEPENDENCY ${CMAKE_CURRENT_LIST_DIR}/${LUA_LOGO}
-    COMMENT "Generating Lua icon"
-    )
-  add_custom_target(luaicon ALL DEPENDS lua.ico)
 endif()
 
 set(LUA_SRC lua-${CMAKE_PROJECT_VERSION}/src)
@@ -117,11 +89,6 @@ target_sources(lualib
 if(WIN32)
   target_compile_definitions(lualib PUBLIC LUA_BUILD_AS_DLL)
   set_property(TARGET lualib PROPERTY OUTPUT_NAME lua${CMAKE_PROJECT_VERSION_MAJOR}${CMAKE_PROJECT_VERSION_MINOR})
-
-  install(PROGRAMS
-    ${CMAKE_CURRENT_LIST_DIR}/luarocks-${LUAROCKS_VERSION}-windows-64/luarocks.exe
-    ${CMAKE_CURRENT_LIST_DIR}/luarocks-${LUAROCKS_VERSION}-windows-64/luarocks-admin.exe
-    TYPE BIN)
 else()
   set_property(TARGET lualib PROPERTY OUTPUT_NAME lua)
 endif()

@@ -23,7 +23,6 @@ winget install --id DEVCOM.Lua
 - [CMake](https://cmake.org/)
 - [Ninja](https://ninja-build.org/)
 - [GhostScript](https://www.ghostscript.com/)
-- [WiX v3](https://wixtoolset.org/docs/wix3/)
 
 You can install the first five components with the following
 [winget](https://learn.microsoft.com/windows/package-manager/winget/) commands:
@@ -33,17 +32,6 @@ winget install --id LLVM.LLVM
 winget install --id Kitware.CMake
 winget install --id Ninja-build.Ninja
 winget install --id ArtifexSoftware.GhostScript
-```
-
-WiX v3 is available at <https://github.com/wixtoolset/wix3/releases/>. It
-requires .NET Framework 3.5 that can be installed with the following command:
-
-```powershell
-Start-Process `
-    -FilePath pwsh `
-    -ArgumentList "-Command `"& {Enable-WindowsOptionalFeature -Online -FeatureName NetFx3}`"" `
-    -Wait `
-    -Verb RunAs
 ```
 
 Update your path environment with `setx` (supposing you installed the tools in

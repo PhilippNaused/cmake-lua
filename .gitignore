@@ -13,7 +13,5 @@ _deps
 build/
 install/
 lua-*/
-luarocks-*/
 *.gz
 *.zip
-lua-logo-nolabel.ps

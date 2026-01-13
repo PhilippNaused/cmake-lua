@@ -3,7 +3,7 @@
 This is a CMake-based project to build and package [Lua](https://lua.org/). As the [official Lua binaries
 repository](https://luabinaries.sourceforge.net/) is not updated very
 frequently, and the [compilation
-process](https://www.lua.org/manual/5.4/readme.html) for Windows binaries is not
+process](https://www.lua.org/manual/5.5/readme.html) for Windows binaries is not
 straightforward for non-C developers, you can use this project to build an
 updated version of Lua.
 

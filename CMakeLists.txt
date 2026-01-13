@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-set(LUA_VERSION 5.4.6)
+set(LUA_VERSION 5.5.0)
 project(Lua
   VERSION ${LUA_VERSION}
   DESCRIPTION "Lua built using CMake"
@@ -9,7 +9,7 @@ project(Lua
 
 # https://www.lua.org/ftp/
 set(LUA_TARBALL lua-${CMAKE_PROJECT_VERSION}.tar.gz)
-set(LUA_TARBALL_SHA256 7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88)
+set(LUA_TARBALL_SHA256 57ccc32bbbd005cab75bcc52444052535af691789dba2b9016d5c50640d68b3d)
 
 if(NOT EXISTS ${CMAKE_CURRENT_LIST_DIR}/${LUA_TARBALL})
   file(DOWNLOAD https://www.lua.org/ftp/${LUA_TARBALL}
@@ -102,7 +102,7 @@ if(WIN32)
   install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/lua.pdb
     ${CMAKE_CURRENT_BINARY_DIR}/luac.pdb
-    ${CMAKE_CURRENT_BINARY_DIR}/lua54.pdb
+    ${CMAKE_CURRENT_BINARY_DIR}/lua55.pdb
     DESTINATION bin)
 else()
   install(FILES ${LUA_DOC}/lua.1 ${LUA_DOC}/luac.1

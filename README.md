@@ -22,7 +22,6 @@ winget install --id DEVCOM.Lua
   [Clang](https://clang.llvm.org/))
 - [CMake](https://cmake.org/)
 - [Ninja](https://ninja-build.org/)
-- [GhostScript](https://www.ghostscript.com/)
 
 You can install the first five components with the following
 [winget](https://learn.microsoft.com/windows/package-manager/winget/) commands:
@@ -31,7 +30,6 @@ You can install the first five components with the following
 winget install --id LLVM.LLVM
 winget install --id Kitware.CMake
 winget install --id Ninja-build.Ninja
-winget install --id ArtifexSoftware.GhostScript
 ```
 
 Update your path environment with `setx` (supposing you installed the tools in
@@ -48,7 +46,6 @@ Check if `PATH` was set correctly:
 Get-Command clang
 Get-Command cmake
 Get-Command ninja
-Get-Command gswin64
 ```
 
 You may need to restart your Windows session if you can't find `ninja` even
@@ -56,8 +53,7 @@ after restarting your terminal.
 
 ## Build
 
-Use the following commands to generate the installation package in both ZIP and
-MSI formats:
+Use the following commands to generate the installation package in both ZIP format:
 
 ```powershell
 cmake -B build -G Ninja -D CMAKE_BUILD_TYPE=RelWithDebInfo
@@ -69,4 +65,4 @@ code.
 
 For convenience, you can use the `Build-Lua.ps1` script to run these commands.
 
-If successful, the ZIP and MSI files will be available in the `build` directory.
+If successful, the ZIP file will be available in the `build` directory.

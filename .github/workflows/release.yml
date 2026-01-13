@@ -15,6 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: actions/download-artifact@v7
+        with:
+          name: build
+          path: build
       - run: |
           gh release create "${TAG}" --notes "Lua ${TAG}" ./build/*.zip
         env:

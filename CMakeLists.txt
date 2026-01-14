@@ -7,6 +7,10 @@ project(Lua
   LANGUAGES C
   )
 
+if(NOT WIN32)
+  error("Only Windows is supported.")
+endif()
+
 # https://www.lua.org/ftp/
 set(LUA_TARBALL lua-${CMAKE_PROJECT_VERSION}.tar.gz)
 set(LUA_TARBALL_SHA256 57ccc32bbbd005cab75bcc52444052535af691789dba2b9016d5c50640d68b3d)
@@ -70,15 +74,6 @@ set (LUAC
 add_executable(lua ${LUA} ${LIB})
 add_executable(luac ${LUAC} ${LIB})
 
-if(NOT WIN32)
-  include(CheckLibraryExists)
-  check_library_exists(m pow "" LIBEXISTS)
-  if(LIBEXISTS)
-    target_link_libraries(lua PUBLIC m)
-    target_link_libraries(luac PUBLIC m)
-  endif()
-endif()
-
 add_library(lualib SHARED ${LIB})
 target_sources(lualib
   PUBLIC
@@ -86,29 +81,19 @@ target_sources(lualib
   FILES ${LUA_SRC}/lauxlib.h  ${LUA_SRC}/lua.h  ${LUA_SRC}/lua.hpp  ${LUA_SRC}/luaconf.h  ${LUA_SRC}/lualib.h
   )
 
-if(WIN32)
-  target_compile_definitions(lualib PUBLIC LUA_BUILD_AS_DLL)
-  set_property(TARGET lualib PROPERTY OUTPUT_NAME lua${CMAKE_PROJECT_VERSION_MAJOR}${CMAKE_PROJECT_VERSION_MINOR})
-else()
-  set_property(TARGET lualib PROPERTY OUTPUT_NAME lua)
-endif()
+target_compile_definitions(lualib PUBLIC LUA_BUILD_AS_DLL)
+set_property(TARGET lualib PROPERTY OUTPUT_NAME lua${CMAKE_PROJECT_VERSION_MAJOR}${CMAKE_PROJECT_VERSION_MINOR})
 
 install(TARGETS lua luac)
 install(TARGETS lualib FILE_SET include)
 install(FILES ${CMAKE_CURRENT_LIST_DIR}/LICENSE.txt TYPE DOC)
 
-if(WIN32)
-  set(CPACK_GENERATOR ZIP)
-  install(FILES
-    ${CMAKE_CURRENT_BINARY_DIR}/lua.pdb
-    ${CMAKE_CURRENT_BINARY_DIR}/luac.pdb
-    ${CMAKE_CURRENT_BINARY_DIR}/lua55.pdb
-    DESTINATION bin)
-else()
-  install(FILES ${LUA_DOC}/lua.1 ${LUA_DOC}/luac.1
-    DESTINATION man/man1
-    )
-endif()
+set(CPACK_GENERATOR ZIP)
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/lua.pdb
+  ${CMAKE_CURRENT_BINARY_DIR}/luac.pdb
+  ${CMAKE_CURRENT_BINARY_DIR}/lua55.pdb
+  DESTINATION bin)
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY FALSE)
 set(CPACK_RESOURCE_FILE_LICENSE ${CMAKE_CURRENT_LIST_DIR}/LICENSE.txt)
 set(CPACK_PACKAGE_INSTALL_DIRECTORY ${CMAKE_PROJECT_NAME})
